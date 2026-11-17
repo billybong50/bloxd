@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloxd Portal</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #1a1a1a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        /* Animated Background simulating a Voxel World */
+        .voxel-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                repeating-linear-gradient(90deg, transparent, transparent 50px, #2c3e50 50px, #2c3e50 100px),
+                repeating-linear-gradient(0deg, transparent, transparent 50px, #2c3e50 50px, #2c3e50 100px);
+            background-size: 100% 100%, 100px 100px, 100px 100px;
+            z-index: -1;
+            animation: moveBg 20s linear infinite;
+        }
+
+        @keyframes moveBg {
+            0% { background-position: 0 0, 0 0, 0 0; }
+            100% { background-position: 0 0, 0 100px, 0 100px; }
+        }
+
+        h1 {
+            position: absolute;
+            top: 20px;
+            text-align: center;
+            font-size: 3rem;
+            text-shadow: 4px 4px 0px #000;
+            letter-spacing: 2px;
+            z-index: 10;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 800px;
+            padding: 20px;
+            z-index: 10;
+        }
+
+        /* The Portal Buttons */
+        .portal-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 20px;
+            border: 4px solid #000;
+            border-radius: 12px;
+            transition: transform 0.1s, box-shadow 0.1s;
+            cursor: pointer;
+            min-height: 100px;
+            text-align: center;
+            
+            /* Minecraft-like Button Style */
+            background-color: #7d7d7d;
+            box-shadow: inset 4px 4px 0px #a8a8a8, inset -4px -4px 0px #4a4a4a, 0px 8px 0px #000;
+        }
+
+        .portal-btn:hover {
+            transform: translateY(4px);
+            box-shadow: inset 4px 4px 0px #a8a8a8, inset -4px -4px 0px #4a4a4a, 0px 4px 0px #000;
+            filter: brightness(1.1);
+        }
+
+        .portal-btn:active {
+            transform: translateY(8px);
+            box-shadow: inset 4px 4px 0px #4a4a4a, inset -4px -4px 0px #a8a8a8, 0px 0px 0px #000;
+        }
+
+        /* Specific Colors for variety */
+        .p1 { background-color: #3498db; box-shadow: inset 4px 4px 0px #5dade2, inset -4px -4px 0px #2874a6, 0px 8px 0px #000; }
+        .p2 { background-color: #e74c3c; box-shadow: inset 4px 4px 0px #ec7063, inset -4px -4px 0px #c0392b, 0px 8px 0px #000; }
+        .p3 { background-color: #2ecc71; box-shadow: inset 4px 4px 0px #58d68d, inset -4px -4px 0px #27ae60, 0px 8px 0px #000; }
+        .p4 { background-color: #9b59b6; box-shadow: inset 4px 4px 0px #bb8fce, inset -4px -4px 0px #8e44ad, 0px 8px 0px #000; }
+        .p5 { background-color: #f1c40f; box-shadow: inset 4px 4px 0px #f7dc6f, inset -4px -4px 0px #d4ac0d, 0px 8px 0px #000; }
+        .p6 { background-color: #e67e22; box-shadow: inset 4px 4px 0px #eb984e, inset -4px -4px 0px #ca6f1e, 0px 8px 0px #000; }
+
+        .label {
+            text-shadow: 2px 2px 0px #000;
+            margin-bottom: 5px;
+        }
+        
+        .link-text {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 600px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="voxel-bg"></div>
+    
+    <h1>BLOXD PORTAL</h1>
+
+    <div class="grid-container">
+        <!-- Button 1 -->
+        <button onclick="openInBlank('https://buildhub.work')" class="portal-btn p1">
+            <span class="label">BUILDHUB</span>
+            <span class="link-text">work</span>
+        </button>
+
+        <!-- Button 2 -->
+        <button onclick="openInBlank('https://buildhub.club')" class="portal-btn p2">
+            <span class="label">BUILDHUB</span>
+            <span class="link-text">club</span>
+        </button>
+
+        <!-- Button 3 -->
+        <button onclick="openInBlank('https://classcraft.space')" class="portal-btn p3">
+            <span class="label">CLASSCRAFT</span>
+            <span class="link-text">space</span>
+        </button>
+
+        <!-- Button 4 -->
+        <button onclick="openInBlank('https://buildminecreate.com')" class="portal-btn p4">
+            <span class="label">BUILD MINE</span>
+            <span class="link-text">create</span>
+        </button>
+
+        <!-- Button 5 -->
+        <button onclick="openInBlank('https://iogamesunblocked.com')" class="portal-btn p5">
+            <span class="label">IO GAMES</span>
+            <span class="link-text">unblocked</span>
+        </button>
+
+        <!-- Button 6 -->
+        <button onclick="openInBlank('https://doodlecube.io')" class="portal-btn p6">
+            <span class="label">DOODLE</span>
+            <span class="link-text">cube</span>
+        </button>
+    </div>
+
+    <script>
+        function openInBlank(url) {
+            // Open a new window with about:blank
+            const newWindow = window.open("about:blank", "_blank");
+            
+            if (newWindow) {
+                // Wait for the new window to load, then inject the iframe
+                newWindow.onload = function() {
+                    newWindow.document.body.style.margin = "0";
+                    newWindow.document.body.style.overflow = "hidden";
+                    
+                    const iframe = newWindow.document.createElement("iframe");
+                    iframe.src = url;
+                    iframe.style.width = "100%";
+                    iframe.style.height = "100%";
+                    iframe.style.border = "none";
+                    iframe.style.position = "fixed";
+                    iframe.style.top = "0";
+                    iframe.style.left = "0";
+                    iframe.style.zIndex = "9999";
+                    
+                    newWindow.document.body.appendChild(iframe);
+                };
+            } else {
+                // Fallback if popup is blocked
+                window.location.href = url;
+            }
+        }
+    </script>
+
+</body>
+</html>
