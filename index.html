@@ -17,7 +17,7 @@
             color: white;
         }
 
-        /* Animated Background simulating a Voxel World */
+        /* Animated Background */
         .voxel-bg {
             position: absolute;
             top: 0;
@@ -55,6 +55,13 @@
             max-width: 800px;
             padding: 20px;
             z-index: 10;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Hide grid when iframe is active */
+        .grid-container.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
         /* The Portal Buttons */
@@ -114,6 +121,41 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        /* Iframe Styling */
+        #game-frame {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            z-index: 20;
+            display: none; /* Hidden by default */
+        }
+
+        /* Back Arrow Button */
+        #back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 30;
+            background-color: #333;
+            color: white;
+            border: 2px solid #fff;
+            padding: 10px 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 4px 0 #000;
+            display: none; /* Hidden by default */
+            font-weight: bold;
+        }
+
+        #back-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 #000;
+        }
     </style>
 </head>
 <body>
@@ -122,71 +164,69 @@
     
     <h1>BLOXD PORTAL</h1>
 
-    <div class="grid-container">
+    <div class="grid-container" id="menu-grid">
         <!-- Button 1 -->
-        <button onclick="openInBlank('https://buildhub.work')" class="portal-btn p1">
+        <button onclick="loadGame('https://buildhub.work')" class="portal-btn p1">
             <span class="label">BUILDHUB</span>
             <span class="link-text">work</span>
         </button>
 
         <!-- Button 2 -->
-        <button onclick="openInBlank('https://buildhub.club')" class="portal-btn p2">
+        <button onclick="loadGame('https://buildhub.club')" class="portal-btn p2">
             <span class="label">BUILDHUB</span>
             <span class="link-text">club</span>
         </button>
 
         <!-- Button 3 -->
-        <button onclick="openInBlank('https://classcraft.space')" class="portal-btn p3">
+        <button onclick="loadGame('https://classcraft.space')" class="portal-btn p3">
             <span class="label">CLASSCRAFT</span>
             <span class="link-text">space</span>
         </button>
 
         <!-- Button 4 -->
-        <button onclick="openInBlank('https://buildminecreate.com')" class="portal-btn p4">
+        <button onclick="loadGame('https://buildminecreate.com')" class="portal-btn p4">
             <span class="label">BUILD MINE</span>
             <span class="link-text">create</span>
         </button>
 
         <!-- Button 5 -->
-        <button onclick="openInBlank('https://iogamesunblocked.com')" class="portal-btn p5">
+        <button onclick="loadGame('https://iogamesunblocked.com')" class="portal-btn p5">
             <span class="label">IO GAMES</span>
             <span class="link-text">unblocked</span>
         </button>
 
         <!-- Button 6 -->
-        <button onclick="openInBlank('https://doodlecube.io')" class="portal-btn p6">
+        <button onclick="loadGame('https://doodlecube.io')" class="portal-btn p6">
             <span class="label">DOODLE</span>
             <span class="link-text">cube</span>
         </button>
     </div>
 
+    <!-- Iframe Container -->
+    <iframe id="game-frame" src=""></iframe>
+
+    <!-- Back/Arrow Button -->
+    <button id="back-btn" onclick="goHome()">&#8592; HOME</button>
+
     <script>
-        function openInBlank(url) {
-            // Open a new window with about:blank
-            const newWindow = window.open("about:blank", "_blank");
-            
-            if (newWindow) {
-                // Wait for the new window to load, then inject the iframe
-                newWindow.onload = function() {
-                    newWindow.document.body.style.margin = "0";
-                    newWindow.document.body.style.overflow = "hidden";
-                    
-                    const iframe = newWindow.document.createElement("iframe");
-                    iframe.src = url;
-                    iframe.style.width = "100%";
-                    iframe.style.height = "100%";
-                    iframe.style.border = "none";
-                    iframe.style.position = "fixed";
-                    iframe.style.top = "0";
-                    iframe.style.left = "0";
-                    iframe.style.zIndex = "9999";
-                    
-                    newWindow.document.body.appendChild(iframe);
-                };
-            } else {
-                // Fallback if popup is blocked
-                window.location.href = url;
-            }
+        const frame = document.getElementById('game-frame');
+        const grid = document.getElementById('menu-grid');
+        const backBtn = document.getElementById('back-btn');
+
+        function loadGame(url) {
+            // Show iframe and hide menu
+            frame.src = url;
+            frame.style.display = 'block';
+            grid.classList.add('hidden');
+            backBtn.style.display = 'block';
+        }
+
+        function goHome() {
+            // Clear iframe and show menu
+            frame.src = "";
+            frame.style.display = 'none';
+            grid.classList.remove('hidden');
+            backBtn.style.display = 'none';
         }
     </script>
 
